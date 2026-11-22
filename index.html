@@ -18,7 +18,7 @@
   .tabs button { flex: 1; padding: 10px 8px; font-size: 14px; font-weight: 600; border: 2px solid #c5ccd4; background: #fff; border-radius: 8px; cursor: pointer; color: #1d2733; }
   .tabs button.on { border-color: #1d5fbf; background: #1d5fbf; color: #fff; }
   .stage { background: #fff; border: 1px solid #d5dbe1; border-radius: 10px; position: relative; }
-  canvas { display: block; width: 100%; height: 640px; touch-action: pan-y; cursor: grab; border-radius: 10px; }
+  canvas { display: block; width: 100%; height: 640px; touch-action: none; cursor: grab; border-radius: 10px; }
   .tools { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; padding: 8px 4px; font-size: 13px; }
   .tools button { padding: 5px 10px; border: 1px solid #c5ccd4; background: #fff; border-radius: 6px; cursor: pointer; font-size: 13px; }
   .card { background: #fff; border: 1px solid #d5dbe1; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; font-size: 14px; line-height: 1.45; }
@@ -34,13 +34,13 @@
   .legend span { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; border: 1px solid rgba(0,0,0,.25); }
   .legend div { margin-bottom: 3px; font-size: 13px; }
   .hint { font-size: 12px; color: #55606c; }
-  @media (max-width: 980px) { .wrap { flex-direction: column; } .right { flex: 1 1 auto; width: 100%; } canvas { height: 360px; } header { padding: 10px 12px 6px; } .wrap { padding: 0 12px 16px; } .tabs button { font-size: 13px; padding: 8px 4px; } }
+  @media (max-width: 980px) { .wrap { flex-direction: column; } .right { flex: 1 1 auto; width: 100%; } canvas { height: 340px; } .stage { margin-right: 44px; } .stage::after { content: '↕'; position: absolute; right: -34px; top: 50%; transform: translateY(-50%); color: #9aa3ab; font-size: 22px; } header { padding: 10px 12px 6px; } .wrap { padding: 0 12px 16px; } .tabs button { font-size: 13px; padding: 8px 4px; } }
 </style>
 </head>
 <body>
 <header>
   <h1>Carport: 8 Solarmodule, geplanter Aufbau und zwei Alternativen</h1>
-  <p>Maßstäbliche 3D-Skizze zum Ansehen, kein Statik-Nachweis. Am Computer mit der Maus drehen und mit dem Mausrad vergrößern. Am Handy seitlich wischen zum Drehen, die Knöpfe unter dem Bild wechseln die Ansicht. Stand 22.11.2026.</p>
+  <p>Maßstäbliche 3D-Skizze zum Ansehen, kein Statik-Nachweis. Am Computer mit der Maus drehen und mit dem Mausrad vergrößern. Am Handy: mit einem Finger im Bild drehen und kippen, mit zwei Fingern oder rechts neben dem Bild die Seite scrollen. Stand 22.11.2026.</p>
 </header>
 <div class="wrap">
   <div class="left">
@@ -376,16 +376,26 @@
   document.getElementById('bTop').onclick = function () { st.az = 1.5708; st.el = 1.5; st.zoom = 1; draw(); };
   document.getElementById('bSide').onclick = function () { st.az = 0.1; st.el = 0.12; st.zoom = 1; draw(); };
 
-  var drag = null;
-  var touch = false;
-  cv.addEventListener('pointerdown', function (e) { drag = [e.clientX, e.clientY]; touch = e.pointerType === 'touch'; if (!touch) cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; });
+  var pts = {}, drag = null;
+  function count() { return Object.keys(pts).length; }
+  cv.addEventListener('pointerdown', function (e) {
+    pts[e.pointerId] = [e.clientX, e.clientY];
+    try { cv.setPointerCapture(e.pointerId); } catch (x) {}
+    drag = count() === 1 ? [e.clientX, e.clientY] : null;
+    cv.style.cursor = 'grabbing';
+  });
   cv.addEventListener('pointermove', function (e) {
-    if (!drag) return;
+    if (!pts[e.pointerId]) return;
+    var old = pts[e.pointerId]; pts[e.pointerId] = [e.clientX, e.clientY];
+    if (count() >= 2) { window.scrollBy(0, -(e.clientY - old[1])); return; }   // zwei Finger: Seite scrollen
+    if (!drag) { drag = [e.clientX, e.clientY]; return; }
     st.az += (e.clientX - drag[0]) * 0.008;
-    if (!touch) st.el = Math.max(0.1, Math.min(1.5, st.el + (e.clientY - drag[1]) * 0.006));
+    st.el = Math.max(0.1, Math.min(1.5, st.el + (e.clientY - drag[1]) * 0.006));
     drag = [e.clientX, e.clientY]; draw();
   });
-  ['pointerup', 'pointercancel', 'pointerleave'].forEach(function (n) { cv.addEventListener(n, function () { drag = null; cv.style.cursor = 'grab'; }); });
+  ['pointerup', 'pointercancel'].forEach(function (n) {
+    cv.addEventListener(n, function (e) { delete pts[e.pointerId]; drag = null; cv.style.cursor = 'grab'; });
+  });
   cv.addEventListener('wheel', function (e) { e.preventDefault(); st.zoom = Math.max(0.5, Math.min(4, st.zoom * (e.deltaY < 0 ? 1.1 : 0.9))); draw(); }, { passive: false });
   window.addEventListener('resize', draw);
 
