@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Carport: 8 Solarmodule, geplanter Aufbau (Skizze)</title>
+<title>Carport mit 8 Solarmodulen</title>
 <style>
   * { box-sizing: border-box; }
   body { margin: 0; font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; color: #1d2733; background: #eef1f4; }
@@ -39,57 +39,48 @@
 </head>
 <body>
 <header>
-  <h1>Carport: 8 Solarmodule, geplanter Aufbau und zwei Alternativen</h1>
-  <p>Maßstäbliche 3D-Skizze zum Ansehen, kein Statik-Nachweis. Am Computer mit der Maus drehen und mit dem Mausrad vergrößern. Am Handy: mit einem Finger im Bild drehen und kippen, mit zwei Fingern auseinanderziehen zum Vergrößern (oder die Knöpfe „größer“ und „kleiner“). Zum Scrollen der Seite neben oder unter das Bild fassen. Stand 22.11.2026.</p>
+  <h1>Carport mit 8 Solarmodulen</h1>
 </header>
 <div class="wrap">
   <div class="left">
     <div class="tabs">
-      <button data-v="1">1 · Geplant<br><small>24 Rasenkantensteine, nichts am Dach verschraubt</small></button>
-      <button data-v="2">2 · Alternative<br><small>am Dachrand verschraubt, ohne Steine</small></button>
-      <button data-v="3">3 · Zum Vergleich<br><small>durch das Dach verschraubt</small></button>
+      <button data-v="1">1 · Geplant<br><small>mit 24 Steinen</small></button>
+      <button data-v="2">2 · Alternative<br><small>am Dachrand verschraubt</small></button>
+      <button data-v="3">3 · Vergleich<br><small>durch das Dach verschraubt</small></button>
     </div>
     <div class="stage"><canvas id="c"></canvas></div>
     <div class="tools">
-      <label><input type="checkbox" id="tRoof" checked> Dach durchsichtig (Balken sichtbar)</label>
-      <label><input type="checkbox" id="tMod"> Module durchsichtig (Steine sichtbar)</label>
-      <label><input type="checkbox" id="tDim" checked> Maße und Beschriftung</label>
-      <button id="bIso">Schrägansicht</button>
+      <label><input type="checkbox" id="tRoof" checked> Dach durchsichtig</label>
+      <label><input type="checkbox" id="tMod"> Module durchsichtig</label>
+      <label><input type="checkbox" id="tDim" checked> Maße</label>
+      <button id="bIso">Schräg</button>
       <button id="bTop">Von oben</button>
       <button id="bSide">Von der Seite</button>
-      <button id="bPlus" aria-label="Vergrößern">＋ größer</button>
-      <button id="bMinus" aria-label="Verkleinern">－ kleiner</button>
+      <button id="bPlus" aria-label="Vergrößern">＋</button>
+      <button id="bMinus" aria-label="Verkleinern">－</button>
     </div>
   </div>
   <div class="right">
     <div class="card" id="info"></div>
     <div class="card legend">
       <h3>Farben</h3>
-      <div><span style="background:#27466e"></span>Solarmodul 1,95 × 1,13 m, ca. 25 kg, 500 W</div>
-      <div><span style="background:#f4d35e"></span>Rasenkantenstein (gelb hervorgehoben) 100 × 25 × 5 cm, 28 kg</div>
-      <div><span style="background:#222"></span>Schutzmatte unter jeder Auflage</div>
-      <div><span style="background:#aeb7c0"></span>Schiene (Aluminium)</div>
-      <div><span style="background:#e8862a"></span>Stütze auf dem Stein (Variante 1), Befestigung am Rand (Variante 2)</div>
-      <div><span style="background:#d62828"></span>Schraube durch die Dachhaut (Variante 3)</div>
-      <div><span style="background:#3d444c"></span>Stahlstützen 10 × 10 cm und Stahlträger</div>
-      <div><span style="background:#c99a55"></span>9 Holzbalken 8 × 16 cm, Schalung 2,2 cm</div>
+      <div><span style="background:#27466e"></span>Solarmodul, 1,95 × 1,13 m, 25 kg</div>
+      <div><span style="background:#f4d35e"></span>Rasenkantenstein, 100 × 25 × 5 cm, 28 kg</div>
+      <div><span style="background:#222"></span>Gummimatte</div>
+      <div><span style="background:#aeb7c0"></span>Schiene</div>
+      <div><span style="background:#e8862a"></span>Halter</div>
+      <div><span style="background:#d62828"></span>Schraube durch das Dach</div>
+      <div><span style="background:#3d444c"></span>Stahl</div>
+      <div><span style="background:#c99a55"></span>Holzbalken</div>
     </div>
     <div class="card">
       <h3>Der Carport</h3>
       <ul>
-        <li>Vorne, vom Haus aus gesehen, ist die lange Seite: 5,20 m. Sie zeigt nach Südsüdwest bis Südwest. Von vorne nach hinten ist das Dach 4,70 m tief, fast flach, mit 2,5 cm Aufkantung am Rand.</li>
-        <li>4 Stahlstützen 10 × 10 cm auf Betonfundamenten (50 cm tief, bewehrt). Abstand links nach rechts 4,40 m, vorne nach hinten 4,0 m.</li>
-        <li>2 Stahlträger laufen von links nach rechts, einer vorne, einer hinten.</li>
-        <li>9 Holzbalken 8 × 16 cm (4,73 m) laufen von vorne nach hinten, 4,0 m frei zwischen den Trägern, je 35 cm Überstand, ca. 63 cm von Mitte zu Mitte. Darauf 2,2 cm Schalung.</li>
-        <li>Dachrinne und Fallrohr hinten. Noch offen: Dachhaut, Gefälle und das Profil der Stahlträger.</li>
-      </ul>
-    </div>
-    <div class="card">
-      <h3>Belegung (bei allen drei gleich)</h3>
-      <ul>
-        <li>8 Module, 2 Reihen mit je 4, hochkant: lange Modulseite von vorne nach hinten, parallel zu den Holzbalken. Feld 4,58 m breit, ca. 3,9 m tief.</li>
-        <li>Vorne und hinten bleiben je knapp 40 cm frei, die Dachrinne hinten bleibt erreichbar. Die Feldränder liegen damit fast genau über den Stahlträgern.</li>
-        <li>Links und rechts bleiben je 31 cm frei.</li>
+        <li>Das Dach ist 5,20 m breit und 4,70 m tief.</li>
+        <li>Vorne ist die Seite zum Haus. Die Dachrinne ist hinten.</li>
+        <li>4 Stahlstützen stehen auf Betonfundamenten.</li>
+        <li>Auf 2 Stahlträgern liegen 9 Holzbalken (8 × 16 cm).</li>
+        <li>Die Module liegen in 2 Reihen mit je 4 Stück. Rundherum bleiben 30 bis 40 cm frei.</li>
       </ul>
     </div>
   </div>
@@ -341,29 +332,27 @@
 
   // ---------- Texte ----------
   var INFO = {
-    1: '<span class="badge" style="background:#1d5fbf">Geplant</span><h2>1 · Beschwert mit 24 Rasenkantensteinen</h2>' +
-       'Die Module stehen hochkant und sind 10 Grad nach vorne zur Sonne geneigt. Nichts wird am Carport verschraubt. Das Gestell liegt auf Rasenkantensteinen (100 × 25 × 5 cm, 28 kg), die Halter sind auf die Steine geschraubt, unter jedem Stein liegt eine rutschfeste Gummimatte.' +
-       '<div class="kv"><div><b>ca. 930 kg</b><span>Gesamtgewicht (24 Steine = 672 kg, Module 200 kg, Gestell ca. 60 kg)</span></div><div><b>ca. 65 %</b><span>Holzbalken ausgelastet mit Schnee, Durchbiegung ca. 1,7 cm bei Grenze 2 cm</span></div></div>' +
-       '<ul><li><b>Verteilung der Steine:</b> je Modul ein Stein an der tiefen und einer an der hohen Kante. Die vier Eckmodule bekommen zwei Steine mehr, auf der Seite des Stahlträgers. Das sind 4 Steine an den Eckmodulen, 2 an den mittleren, zusammen 24. Davon liegen 16 nah an den Stahlträgern und 8 in der Dachmitte.</li>' +
-       '<li><b>Ein Verbund:</b> Durchgehende Schienen an der tiefen und hohen Kante verbinden die vier Module jeder Reihe, Längsstreben verbinden beide Reihen. Der Wind muss dann das ganze Feld bewegen.</li>' +
-       '<li><b>Steine verschrauben:</b> durchgehende Schraube mit großer Scheibe unten, mindestens 8 cm vom Rand, ohne Schlag bohren. Die Steine sind nur 5 cm dick und ohne Stahl.</li>' +
-       '<li><b>Wind (Überschlag, ohne Windblech):</b> Das Feld kann ab etwa 94 km/h rutschen und ab etwa 109 km/h abheben. Die Norm verlangt für diesen Standort rund 100 km/h mit Sicherheitsaufschlag, das wären 5 Steine je Modul. Diese Lösung liegt also darunter.</li>' +
-       '<li><b>Wasser:</b> Zwischen Matten und Steinen müssen Lücken bleiben, damit das Regenwasser nach hinten zur Dachrinne ablaufen kann.</li>' +
-       '<li>Stahlträger und Fundamente sind nicht gerechnet. Vor dem Bau sollte ein Zimmermann das Dach ansehen.</li></ul>',
-    2: '<span class="badge" style="background:#2f855a">Leichter und sturmsicher</span><h2>2 · Am Dachrand verschraubt, ohne Steine</h2>' +
-       '8 Schienen laufen von vorne nach hinten über das ganze Dach, parallel zu den Holzbalken. Sie liegen auf Schutzmatten über den Stahlträgern und werden nur an der Vorder- und Hinterkante festgemacht (orange): Winkel um die Dachkante, verschraubt am Balkenende oder am Stahlträger. Die Dachhaut wird nicht durchbohrt. Module mit verstellbaren Stützen 10 Grad geneigt.' +
-       '<div class="kv"><div><b>ca. 240 kg</b><span>Gesamtgewicht (Module 200 kg, Schienen ca. 40 kg)</span></div><div><b>ca. 57 %</b><span>Holzbalken ausgelastet mit Schnee, Durchbiegung ca. 1,5 cm bei Grenze 2 cm</span></div></div>' +
-       '<ul><li>16 Befestigungspunkte, alle außerhalb der Dachfläche.</li>' +
-       '<li>Der Wind geht in den Carport: Im Normsturm müssen die Stützenfüße zusammen etwa 1.000 kg Zug halten, also rund 250 kg je Stütze. Mit Betonfundamenten ist das plausibel; die Breite der Fundamente ist noch offen.</li>' +
-       '<li>Die Schienen überbrücken 4 m. Dafür ein kräftiges Profil nehmen oder in der Mitte eine Matte unterlegen, möglichst über einem Balken.</li>' +
-       '<li>Die Schieferblende muss an den 16 Stellen umgriffen oder ausgespart werden.</li></ul>',
-    3: '<span class="badge" style="background:#6b7280">Nur zum Vergleich</span><h2>3 · Durch das Dach verschraubt</h2>' +
-       '4 Schienen laufen von links nach rechts quer über die Holzbalken und werden an jeder Kreuzung durch die Dachhaut in den Balken geschraubt (rote Punkte). Module hier flach gezeichnet.' +
-       '<div class="kv"><div><b>ca. 240 kg</b><span>Gesamtgewicht (Module 200 kg, Schienen ca. 40 kg)</span></div><div><b>ca. 57 %</b><span>Holzbalken ausgelastet mit Schnee, Durchbiegung ca. 1,5 cm bei Grenze 2 cm</span></div></div>' +
-       '<ul><li>32 Bohrungen durch die Dachhaut. Jede muss dauerhaft dicht bleiben.</li>' +
-       '<li>Die übliche und einfachste Montage, aber auf einem fast flachen Dach mit unbekannter Dachhaut das größte Risiko für Undichtigkeit.</li></ul>'
+    1: '<h2>Geplant: 24 Steine halten die Module</h2>' +
+       'Die 8 Module stehen hochkant und sind 10 Grad zur Sonne geneigt. Am Carport wird nichts verschraubt.' +
+       '<div class="kv"><div><b>ca. 930 kg</b><span>Gewicht auf dem Dach</span></div><div><b>ca. 65 %</b><span>Auslastung der Holzbalken mit Schnee</span></div></div>' +
+       '<ul><li>Die 4 Eckmodule bekommen je 4 Steine, die 4 mittleren je 2.</li>' +
+       '<li>Unter jedem Stein liegt eine Gummimatte.</li>' +
+       '<li>Die Halter sind auf die Steine geschraubt.</li>' +
+       '<li>Schienen verbinden alle Module miteinander.</li>' +
+       '<li>Das hält Wind bis etwa 90 km/h. Bei stärkerem Sturm kann das Feld rutschen.</li></ul>',
+    2: '<h2>Alternative: am Dachrand verschraubt</h2>' +
+       'Die Schienen laufen von vorne nach hinten. Sie sind nur vorne und hinten am Dachrand befestigt. Es gibt keine Steine und kein Loch im Dach.' +
+       '<div class="kv"><div><b>ca. 240 kg</b><span>Gewicht auf dem Dach</span></div><div><b>ca. 57 %</b><span>Auslastung der Holzbalken mit Schnee</span></div></div>' +
+       '<ul><li>Die Module können nicht rutschen.</li>' +
+       '<li>Es gibt 16 Befestigungen am Dachrand (orange).</li>' +
+       '<li>An diesen Stellen muss die Schieferblende ausgespart werden.</li></ul>',
+    3: '<h2>Vergleich: durch das Dach verschraubt</h2>' +
+       'Die Schienen laufen von links nach rechts. Sie sind durch das Dach in die Holzbalken geschraubt.' +
+       '<div class="kv"><div><b>ca. 240 kg</b><span>Gewicht auf dem Dach</span></div><div><b>ca. 57 %</b><span>Auslastung der Holzbalken mit Schnee</span></div></div>' +
+       '<ul><li>Das sind 32 Löcher im Dach (rote Punkte).</li>' +
+       '<li>Jedes Loch muss dauerhaft dicht bleiben.</li></ul>'
   };
-  var NOTE = '<p class="hint">Alle Zahlen sind ein Überschlag, kein Nachweis. Angesetzt: Windzone 1, Schneelastzone 2a auf 440 m Höhe (ca. 1,36 kN/m² auf dem Dach), freie Balkenlänge 4,0 m, Holz C24.</p>';
+  var NOTE = '<p class="hint">Alle Zahlen sind grob geschätzt.</p>';
 
   function setV(v) {
     if (st.v !== v || !st.init) { document.getElementById('tMod').checked = (v === 1); document.getElementById('tRoof').checked = (v !== 1); st.init = 1; }
