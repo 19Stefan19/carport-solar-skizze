@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carport: 8 Solarmodule, geplanter Aufbau (Skizze)</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; color: #1d2733; background: #eef1f4; }
+  header { padding: 12px 20px 8px; }
+  h1 { font-size: 20px; margin: 0 0 2px; }
+  header p { margin: 0; font-size: 13px; color: #55606c; }
+  .wrap { display: flex; gap: 14px; padding: 0 20px 20px; align-items: flex-start; }
+  .left { flex: 1 1 auto; min-width: 0; }
+  .right { flex: 0 0 370px; }
+  .tabs { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+  .tabs button { flex: 1; padding: 10px 8px; font-size: 14px; font-weight: 600; border: 2px solid #c5ccd4; background: #fff; border-radius: 8px; cursor: pointer; color: #1d2733; }
+  .tabs button.on { border-color: #1d5fbf; background: #1d5fbf; color: #fff; }
+  .stage { background: #fff; border: 1px solid #d5dbe1; border-radius: 10px; position: relative; }
+  canvas { display: block; width: 100%; height: 640px; touch-action: none; cursor: grab; border-radius: 10px; }
+  .tools { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; padding: 8px 4px; font-size: 13px; }
+  .tools button { padding: 5px 10px; border: 1px solid #c5ccd4; background: #fff; border-radius: 6px; cursor: pointer; font-size: 13px; }
+  .card { background: #fff; border: 1px solid #d5dbe1; border-radius: 10px; padding: 14px 16px; margin-bottom: 12px; font-size: 14px; line-height: 1.45; }
+  .card h2 { font-size: 16px; margin: 0 0 6px; }
+  .card h3 { font-size: 13px; margin: 0 0 6px; text-transform: uppercase; letter-spacing: .04em; color: #55606c; }
+  .card ul { margin: 6px 0 0; padding-left: 18px; }
+  .card li { margin-bottom: 4px; }
+  .badge { display: inline-block; padding: 2px 9px; border-radius: 10px; font-size: 12px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .kv { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 10px 0 4px; }
+  .kv div { background: #f3f5f8; border-radius: 8px; padding: 8px 10px; }
+  .kv b { display: block; font-size: 18px; }
+  .kv span { font-size: 12px; color: #55606c; }
+  .legend span { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; border: 1px solid rgba(0,0,0,.25); }
+  .legend div { margin-bottom: 3px; font-size: 13px; }
+  .hint { font-size: 12px; color: #55606c; }
+  @media (max-width: 980px) { .wrap { flex-direction: column; } .right { flex: 1 1 auto; width: 100%; } canvas { height: 480px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Carport: 8 Solarmodule, geplanter Aufbau und zwei Alternativen</h1>
+  <p>Maßstäbliche 3D-Skizze zum Ansehen, kein Statik-Nachweis. Mit der Maus oder dem Finger drehen, mit dem Mausrad vergrößern. Stand 22.11.2026.</p>
+</header>
+<div class="wrap">
+  <div class="left">
+    <div class="tabs">
+      <button data-v="1">1 · Geplant<br><small>24 Rasenkantensteine, nichts am Dach verschraubt</small></button>
+      <button data-v="2">2 · Alternative<br><small>am Dachrand verschraubt, ohne Steine</small></button>
+      <button data-v="3">3 · Zum Vergleich<br><small>durch das Dach verschraubt</small></button>
+    </div>
+    <div class="stage"><canvas id="c"></canvas></div>
+    <div class="tools">
+      <label><input type="checkbox" id="tRoof" checked> Dach durchsichtig (Balken sichtbar)</label>
+      <label><input type="checkbox" id="tMod"> Module durchsichtig (Steine sichtbar)</label>
+      <label><input type="checkbox" id="tDim" checked> Maße und Beschriftung</label>
+      <button id="bIso">Schrägansicht</button>
+      <button id="bTop">Von oben</button>
+      <button id="bSide">Von der Seite</button>
+    </div>
+  </div>
+  <div class="right">
+    <div class="card" id="info"></div>
+    <div class="card legend">
+      <h3>Farben</h3>
+      <div><span style="background:#27466e"></span>Solarmodul 1,95 × 1,13 m, ca. 25 kg, 500 W</div>
+      <div><span style="background:#cfcabd"></span>Rasenkantenstein 100 × 25 × 5 cm, 28 kg</div>
+      <div><span style="background:#222"></span>Schutzmatte unter jeder Auflage</div>
+      <div><span style="background:#aeb7c0"></span>Schiene (Aluminium)</div>
+      <div><span style="background:#e8862a"></span>Stütze auf dem Stein (Variante 1), Befestigung am Rand (Variante 2)</div>
+      <div><span style="background:#d62828"></span>Schraube durch die Dachhaut (Variante 3)</div>
+      <div><span style="background:#3d444c"></span>Stahlstützen 10 × 10 cm und Stahlträger</div>
+      <div><span style="background:#c99a55"></span>9 Holzbalken 8 × 16 cm, Schalung 2,2 cm</div>
+    </div>
+    <div class="card">
+      <h3>Der Carport</h3>
+      <ul>
+        <li>Vorne, vom Haus aus gesehen, ist die lange Seite: 5,20 m. Sie zeigt nach Südsüdwest bis Südwest. Von vorne nach hinten ist das Dach 4,70 m tief, fast flach, mit 2,5 cm Aufkantung am Rand.</li>
+        <li>4 Stahlstützen 10 × 10 cm auf Betonfundamenten (50 cm tief, bewehrt). Abstand links nach rechts 4,40 m, vorne nach hinten 4,0 m.</li>
+        <li>2 Stahlträger laufen von links nach rechts, einer vorne, einer hinten.</li>
+        <li>9 Holzbalken 8 × 16 cm (4,73 m) laufen von vorne nach hinten, 4,0 m frei zwischen den Trägern, je 35 cm Überstand, ca. 63 cm von Mitte zu Mitte. Darauf 2,2 cm Schalung.</li>
+        <li>Noch offen: Dachhaut, Gefälle, auf welcher Seite die Dachrinne sitzt (hier seitlich gezeichnet) und das Profil der Stahlträger.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>Belegung (bei allen drei gleich)</h3>
+      <ul>
+        <li>8 Module, 2 Reihen mit je 4, hochkant: lange Modulseite von vorne nach hinten, parallel zu den Holzbalken. Feld 4,58 m breit, ca. 3,9 m tief.</li>
+        <li>Vorne und hinten bleiben je knapp 40 cm frei. Die Feldränder liegen damit fast genau über den Stahlträgern.</li>
+        <li>Seitlich bleiben 15 cm und 47 cm frei.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  // ---------- Maße in Metern ----------
+  var W = 4.70, L = 5.20;            // X = Balkenrichtung, Y = Trägerrichtung (hinten = Dachrinne)
+  var BX = [0.35, 4.35];             // Stahlträger
+  var PY = [0.40, 4.80];             // Stützen
+  var ZB0 = 2.20, ZB1 = 2.36;        // Stahlträger
+  var ZJ1 = 2.52, RT = 2.56;         // Balken oben, Dach oben
+  var MW = 1.95, MH = 1.13, GAP = 0.02, MT = 0.035;
+  var FX0 = (W - (2 * MW + GAP)) / 2;   // 0,39
+  var FY0 = 0.15;
+  var COLX = [FX0, FX0 + MW + GAP];
+  var ROWY = [0, 1, 2, 3].map(function (k) { return FY0 + k * (MH + GAP); });
+  var FX1 = COLX[1] + MW, FY1 = ROWY[3] + MH;
+  var JOISTS = []; for (var j = 0; j < 9; j++) JOISTS.push(0.08 + j * 0.63);
+
+  var cv = document.getElementById('c'), ctx = cv.getContext('2d');
+  var st = { v: 2, az: 1.0, el: 0.56, zoom: 1 };
+  var items, overlays;
+
+  // ---------- Projektion ----------
+  var CX = W / 2, CY = L / 2, CZ = 1.55, sa, ca, se, ce, SC, OX, OY;
+  function prj(p) {
+    var x = p[0] - CX, y = p[1] - CY, z = p[2] - CZ;
+    var xr = x * ca - y * sa, yr = x * sa + y * ca;
+    return [OX + xr * SC, OY - (z * ce + yr * se) * SC, yr * ce - z * se];
+  }
+  function depthDir(nx, ny) { return (nx * sa + ny * ca) * ce; }
+
+  function shade(hex, f) {
+    var n = parseInt(hex.slice(1), 16), r = n >> 16, g = (n >> 8) & 255, b = n & 255;
+    return 'rgb(' + Math.round(r * f) + ',' + Math.round(g * f) + ',' + Math.round(b * f) + ')';
+  }
+  var FACES = [[4, 5, 7, 6, 1.0], [0, 2, 3, 1, 0.5], [0, 1, 5, 4, 0.72], [2, 6, 7, 3, 0.66], [0, 4, 6, 2, 0.84], [1, 3, 7, 5, 0.8]];
+  function solid(verts, col, layer, o) {
+    o = o || {};
+    var P = verts.map(prj);
+    FACES.forEach(function (f, fi) {
+      var a = P[f[0]], b = P[f[1]], c = P[f[2]], d = P[f[3]];
+      var area = (b[0] - a[0]) * -(c[1] - a[1]) - -(b[1] - a[1]) * (c[0] - a[0]);
+      if (area <= 0) return;
+      items.push({ layer: layer, d: (a[2] + b[2] + c[2] + d[2]) / 4, p: [a, b, c, d], fill: shade(col, f[4]),
+        alpha: o.alpha == null ? 1 : o.alpha, stroke: o.stroke || 'rgba(0,0,0,.28)', lw: o.lw || 0.6, top: fi === 0 && o.cells });
+    });
+  }
+  function box(x0, y0, z0, x1, y1, z1, col, layer, o) {
+    var v = [];
+    for (var i = 0; i < 8; i++) v.push([i & 1 ? x1 : x0, i & 2 ? y1 : y0, i & 4 ? z1 : z0]);
+    solid(v, col, layer, o);
+  }
+  function tilted(xLow, dir, y0, y1, z0, len, th, deg, col, layer, o) {
+    var t = deg * Math.PI / 180, c = Math.cos(t), s = Math.sin(t), v = [];
+    for (var i = 0; i < 8; i++) {
+      var vv = (dir > 0 ? (i & 1) : !(i & 1)) ? len : 0, w = i & 4 ? th : 0;
+      v.push([xLow + dir * (vv * c - w * s), i & 2 ? y1 : y0, z0 + vv * s + w * c]);
+    }
+    solid(v, col, layer, o);
+  }
+
+  // ---------- Carport ----------
+  function carport(roofAlpha) {
+    box(-0.25, 0.05, -0.03, W + 0.25, L - 0.05, 0, '#b9bcc0', 0, { stroke: 'rgba(0,0,0,.15)' });
+    BX.forEach(function (bx) {
+      PY.forEach(function (py) {
+        box(bx - 0.125, py - 0.125, 0, bx + 0.125, py + 0.125, 0.012, '#59626b', 1);
+        box(bx - 0.05, py - 0.05, 0.012, bx + 0.05, py + 0.05, ZB0, '#4a525b', 1);
+      });
+      box(bx - 0.045, 0.03, ZB0, bx + 0.045, L - 0.03, ZB0 + 0.012, '#3d444c', 2);
+      box(bx - 0.006, 0.03, ZB0 + 0.012, bx + 0.006, L - 0.03, ZB1 - 0.012, '#3d444c', 2);
+      box(bx - 0.045, 0.03, ZB1 - 0.012, bx + 0.045, L - 0.03, ZB1, '#3d444c', 2);
+    });
+    box(BX[1] + 0.09, PY[1] + 0.02, 0, BX[1] + 0.16, PY[1] + 0.09, 2.2, '#9aa3ab', 1);   // Fallrohr
+    JOISTS.forEach(function (y) { box(0, y - 0.04, ZB1, W, y + 0.04, ZJ1, '#c99a55', 3); });
+    // Blende und Dachrinne: hintere Teile vor dem Dach zeichnen, vordere danach
+    function edge(nx, ny, f) { f(depthDir(nx, ny) < 0 ? 6 : 4); }
+    edge(0, -1, function (l) { box(-0.03, -0.03, 2.30, W + 0.03, 0, RT + 0.04, '#4b535c', l); });
+    edge(0, 1, function (l) {
+      box(-0.03, L, 2.30, W + 0.03, L + 0.03, RT + 0.04, '#4b535c', l);
+      box(-0.03, L + 0.03, 2.36, W + 0.03, L + 0.15, 2.44, '#9aa3ab', l);
+    });
+    edge(-1, 0, function (l) { box(-0.03, 0, 2.30, 0, L, RT + 0.04, '#4b535c', l); });
+    edge(1, 0, function (l) { box(W, 0, 2.30, W + 0.03, L, RT + 0.04, '#4b535c', l); });
+    box(0, 0, ZJ1, W, L, RT, '#8d949b', 5, { alpha: roofAlpha, stroke: 'rgba(0,0,0,.35)' });
+  }
+
+  function moduleOpts(a) { return { alpha: a, stroke: '#dfe5ea', lw: 1.1, cells: true }; }
+
+  // ---------- Variante 1: geplant, 24 Steine, 10 Grad, alles ein Verbund ----------
+  var TAN = Math.tan(10 * Math.PI / 180), COS = Math.cos(10 * Math.PI / 180), Z0 = RT + 0.08;
+  function v1(ma) {
+    var zs = RT + 0.012, zt = zs + 0.05;
+    function stone(x0, y) {
+      box(x0 - 0.015, y + 0.05, RT, x0 + 0.265, y + 1.08, RT + 0.012, '#222222', 7);
+      box(x0, y + 0.065, zs, x0 + 0.25, y + 1.065, zt, '#cfcabd', 8);
+    }
+    [0, 1].forEach(function (c) {
+      var xl = COLX[c], xh = xl + MW * COS;
+      function hAt(x) { return Z0 + (x - xl) * TAN; }
+      var lowX = xl + 0.155, highX = xh - 0.155;
+      ROWY.forEach(function (y, k) {
+        var corner = (k === 0 || k === 3);
+        // je Modul ein Stein an der tiefen und einer an der hohen Kante
+        stone(xl + 0.03, y); stone(xh - 0.28, y);
+        // Eckmodule: zwei Steine mehr, auf der Seite des Stahlträgers
+        if (corner) {
+          if (c === 0) { stone(xl + 0.31, y); stone(xl + 0.59, y); }
+          else { stone(xh - 0.56, y); stone(xh - 0.84, y); }
+        }
+        // Stützen auf dem Stein an der hohen Kante
+        [0.22, 0.91].forEach(function (o) {
+          box(highX - 0.02, y + o - 0.02, zt, highX + 0.02, y + o + 0.02, hAt(highX) - 0.04, '#e8862a', 8.5);
+        });
+        tilted(xl, 1, y, y + MH, Z0, MW, MT, 10, '#27466e', 9, moduleOpts(ma));
+      });
+      // durchgehende Schienen an tiefer und hoher Kante: verbinden die vier Module einer Reihe
+      box(lowX - 0.02, FY0 - 0.02, zt, lowX + 0.02, FY1 + 0.02, hAt(lowX), '#aeb7c0', 8.4);
+      box(highX - 0.02, FY0 - 0.02, hAt(highX) - 0.04, highX + 0.02, FY1 + 0.02, hAt(highX), '#aeb7c0', 8.6);
+    });
+    // Verbindung der beiden Reihen und Längsstreben am Boden
+    var x0 = COLX[0] + 0.155, x1 = COLX[1] + MW * COS - 0.155;
+    for (var k = 0; k < 5; k++) {
+      var gy = FY0 + k * (MH + GAP) - GAP / 2;
+      box(x0, gy - 0.015, zt, x1, gy + 0.015, zt + 0.03, '#aeb7c0', 8.2);
+    }
+  }
+
+  // ---------- Variante 2: Schienen von vorne nach hinten, am Rand befestigt ----------
+  function v2(ma) {
+    var zr = RT + 0.065;
+    ROWY.forEach(function (y) {
+      [0.25, 0.88].forEach(function (o) {
+        var ry = y + o;
+        BX.forEach(function (bx) { box(bx - 0.12, ry - 0.07, RT, bx + 0.12, ry + 0.07, RT + 0.02, '#222222', 7); });
+        box(-0.05, ry - 0.02, RT + 0.02, W + 0.05, ry + 0.02, zr, '#aeb7c0', 8);
+        [[-1, -0.065, -0.035], [1, W + 0.035, W + 0.065]].forEach(function (e) {
+          var l = depthDir(e[0], 0) < 0 ? 6.5 : 3.9;
+          box(e[1], ry - 0.03, 2.27, e[2], ry + 0.03, zr, '#e8862a', l);
+          var bx = e[0] < 0 ? BX[0] : BX[1];
+          box(Math.min(e[1], bx), ry - 0.02, 2.27, Math.max(e[2], bx), ry + 0.02, 2.29, '#e8862a', 2.5);
+        });
+        // verstellbare Stützen an der hohen Kante jeder Reihe
+        COLX.forEach(function (x) {
+          var hx = x + MW * COS - 0.1;
+          box(hx - 0.02, ry - 0.02, zr, hx + 0.02, ry + 0.02, zr + (hx - x) * TAN, '#aeb7c0', 8.5);
+        });
+      });
+      COLX.forEach(function (x) { tilted(x, 1, y, y + MH, zr, MW, MT, 10, '#27466e', 9, moduleOpts(ma)); });
+    });
+  }
+
+  // ---------- Variante 3: verschraubt ----------
+  function v3(ma) {
+    var rails = [];
+    COLX.forEach(function (x) { rails.push(x + 0.45, x + MW - 0.45); });
+    rails.forEach(function (rx) {
+      box(rx - 0.02, FY0 - 0.08, RT, rx + 0.02, FY1 + 0.08, RT + 0.045, '#aeb7c0', 8);
+      JOISTS.forEach(function (jy) {
+        if (jy > FY0 - 0.1 && jy < FY1 + 0.1) overlays.push({ type: 'dot', p: [rx, jy, RT + 0.05] });
+      });
+    });
+    ROWY.forEach(function (y) {
+      COLX.forEach(function (x) { box(x, y, RT + 0.045, x + MW, y + MH, RT + 0.045 + MT, '#27466e', 9, moduleOpts(ma)); });
+    });
+  }
+
+  // ---------- Maße ----------
+  function dims() {
+    function dim(a, b, txt) { overlays.push({ type: 'dim', a: a, b: b, txt: txt }); }
+    function lab(p, txt, bold) { overlays.push({ type: 'lab', p: p, txt: txt, bold: bold }); }
+    dim([0, -0.45, RT], [W, -0.45, RT], 'Dach 4,70 m');
+    dim([-0.45, 0, RT], [-0.45, L, RT], 'Dach 5,20 m');
+    dim([BX[0], PY[0] - 0.45, 0], [BX[1], PY[0] - 0.45, 0], 'Stützen 4,00 m');
+    dim([BX[1] + 0.6, PY[0], 0], [BX[1] + 0.6, PY[1], 0], 'Stützen 4,40 m');
+    dim([FX0, FY1 + 0.22, RT], [FX1, FY1 + 0.22, RT], 'Modulfeld ca. 3,9 m');
+    dim([W + 0.4, FY0, RT], [W + 0.4, FY1, RT], 'Modulfeld 4,58 m');
+    lab([-1.3, L / 2, 0], 'VORNE (Hausseite)', true);
+    lab([W + 1.3, L / 2, 2.4], 'HINTEN', true);
+    lab([W / 2, L + 1.0, 2.25], 'Dachrinne', true);
+    lab([BX[0], -0.05, ZB0 - 0.14], 'Stahlträger');
+  }
+
+  // ---------- Zeichnen ----------
+  function draw() {
+    var dpr = window.devicePixelRatio || 1, w = cv.clientWidth, h = cv.clientHeight;
+    if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+    sa = Math.sin(st.az); ca = Math.cos(st.az); se = Math.sin(st.el); ce = Math.cos(st.el);
+    SC = Math.min(w, h * 1.25) / 8.6 * st.zoom; OX = w / 2; OY = h / 2;
+    items = []; overlays = [];
+    var roofA = document.getElementById('tRoof').checked ? 0.5 : 1;
+    var modA = document.getElementById('tMod').checked ? 0.3 : 0.9;
+    carport(roofA);
+    (st.v === 1 ? v1 : st.v === 2 ? v2 : v3)(modA);
+    if (document.getElementById('tDim').checked) dims();
+    items.sort(function (a, b) { return a.layer - b.layer || b.d - a.d; });
+    ctx.lineJoin = 'round';
+    items.forEach(function (it) {
+      ctx.globalAlpha = it.alpha;
+      ctx.beginPath();
+      it.p.forEach(function (q, i) { i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); });
+      ctx.closePath();
+      ctx.fillStyle = it.fill; ctx.fill();
+      if (it.top) {   // Zellraster andeuten
+        ctx.strokeStyle = 'rgba(255,255,255,.16)'; ctx.lineWidth = 0.6;
+        var p = it.p;
+        for (var i = 1; i < 6; i++) {
+          var t = i / 6;
+          ctx.beginPath();
+          ctx.moveTo(p[0][0] + (p[1][0] - p[0][0]) * t, p[0][1] + (p[1][1] - p[0][1]) * t);
+          ctx.lineTo(p[3][0] + (p[2][0] - p[3][0]) * t, p[3][1] + (p[2][1] - p[3][1]) * t);
+          ctx.stroke();
+        }
+        ctx.beginPath();
+        it.p.forEach(function (q, i) { i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]); });
+        ctx.closePath();
+      }
+      ctx.strokeStyle = it.stroke; ctx.lineWidth = it.lw; ctx.stroke();
+    });
+    ctx.globalAlpha = 1;
+    function text(x, y, t, bold, col) {
+      ctx.font = (bold ? '700 13px ' : '600 12px ') + '-apple-system, Helvetica, Arial, sans-serif';
+      ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.lineWidth = 4; ctx.strokeStyle = 'rgba(255,255,255,.92)'; ctx.strokeText(t, x, y);
+      ctx.fillStyle = col || '#1d2733'; ctx.fillText(t, x, y);
+    }
+    overlays.forEach(function (o) {
+      if (o.type === 'dot') {
+        var q = prj(o.p);
+        ctx.beginPath(); ctx.arc(q[0], q[1], 3.6, 0, 7); ctx.fillStyle = '#d62828'; ctx.fill();
+        ctx.lineWidth = 1; ctx.strokeStyle = '#fff'; ctx.stroke();
+      } else if (o.type === 'dim') {
+        var a = prj(o.a), b = prj(o.b);
+        ctx.strokeStyle = '#1d5fbf'; ctx.lineWidth = 1.3;
+        ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+        [a, b].forEach(function (q) { ctx.beginPath(); ctx.arc(q[0], q[1], 2.6, 0, 7); ctx.fillStyle = '#1d5fbf'; ctx.fill(); });
+        text((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, o.txt, false, '#134a9a');
+      } else {
+        var p = prj(o.p); text(p[0], p[1], o.txt, o.bold);
+      }
+    });
+  }
+
+  // ---------- Texte ----------
+  var INFO = {
+    1: '<span class="badge" style="background:#1d5fbf">Geplant</span><h2>1 · Beschwert mit 24 Rasenkantensteinen</h2>' +
+       'Die Module stehen hochkant und sind 10 Grad nach vorne zur Sonne geneigt. Nichts wird am Carport verschraubt. Das Gestell liegt auf Rasenkantensteinen (100 × 25 × 5 cm, 28 kg), die Halter sind auf die Steine geschraubt, unter jedem Stein liegt eine rutschfeste Gummimatte.' +
+       '<div class="kv"><div><b>ca. 930 kg</b><span>Gesamtgewicht (24 Steine = 672 kg, Module 200 kg, Gestell ca. 60 kg)</span></div><div><b>ca. 65 %</b><span>Holzbalken ausgelastet mit Schnee, Durchbiegung ca. 1,7 cm bei Grenze 2 cm</span></div></div>' +
+       '<ul><li><b>Verteilung der Steine:</b> je Modul ein Stein an der tiefen und einer an der hohen Kante. Die vier Eckmodule bekommen zwei Steine mehr, auf der Seite des Stahlträgers. Das sind 4 Steine an den Eckmodulen, 2 an den mittleren, zusammen 24. Davon liegen 16 nah an den Stahlträgern und 8 in der Dachmitte.</li>' +
+       '<li><b>Ein Verbund:</b> Durchgehende Schienen an der tiefen und hohen Kante verbinden die vier Module jeder Reihe, Längsstreben verbinden beide Reihen. Der Wind muss dann das ganze Feld bewegen.</li>' +
+       '<li><b>Steine verschrauben:</b> durchgehende Schraube mit großer Scheibe unten, mindestens 8 cm vom Rand, ohne Schlag bohren. Die Steine sind nur 5 cm dick und ohne Stahl.</li>' +
+       '<li><b>Wind (Überschlag, ohne Windblech):</b> Das Feld kann ab etwa 94 km/h rutschen und ab etwa 109 km/h abheben. Die Norm verlangt für diesen Standort rund 100 km/h mit Sicherheitsaufschlag, das wären 5 Steine je Modul. Diese Lösung liegt also darunter.</li>' +
+       '<li><b>Wasser:</b> Zwischen Matten und Steinen müssen Lücken bleiben, damit das Regenwasser zur Dachrinne ablaufen kann.</li>' +
+       '<li>Stahlträger und Fundamente sind nicht gerechnet. Vor dem Bau sollte ein Zimmermann das Dach ansehen.</li></ul>',
+    2: '<span class="badge" style="background:#2f855a">Leichter und sturmsicher</span><h2>2 · Am Dachrand verschraubt, ohne Steine</h2>' +
+       '8 Schienen laufen von vorne nach hinten über das ganze Dach, parallel zu den Holzbalken. Sie liegen auf Schutzmatten über den Stahlträgern und werden nur an der Vorder- und Hinterkante festgemacht (orange): Winkel um die Dachkante, verschraubt am Balkenende oder am Stahlträger. Die Dachhaut wird nicht durchbohrt. Module mit verstellbaren Stützen 10 Grad geneigt.' +
+       '<div class="kv"><div><b>ca. 240 kg</b><span>Gesamtgewicht (Module 200 kg, Schienen ca. 40 kg)</span></div><div><b>ca. 57 %</b><span>Holzbalken ausgelastet mit Schnee, Durchbiegung ca. 1,5 cm bei Grenze 2 cm</span></div></div>' +
+       '<ul><li>16 Befestigungspunkte, alle außerhalb der Dachfläche.</li>' +
+       '<li>Der Wind geht in den Carport: Im Normsturm müssen die Stützenfüße zusammen etwa 1.000 kg Zug halten, also rund 250 kg je Stütze. Mit Betonfundamenten ist das plausibel; die Breite der Fundamente ist noch offen.</li>' +
+       '<li>Die Schienen überbrücken 4 m. Dafür ein kräftiges Profil nehmen oder in der Mitte eine Matte unterlegen, möglichst über einem Balken.</li>' +
+       '<li>Die Schieferblende muss an den 16 Stellen umgriffen oder ausgespart werden.</li></ul>',
+    3: '<span class="badge" style="background:#6b7280">Nur zum Vergleich</span><h2>3 · Durch das Dach verschraubt</h2>' +
+       '4 Schienen laufen von links nach rechts quer über die Holzbalken und werden an jeder Kreuzung durch die Dachhaut in den Balken geschraubt (rote Punkte). Module hier flach gezeichnet.' +
+       '<div class="kv"><div><b>ca. 240 kg</b><span>Gesamtgewicht (Module 200 kg, Schienen ca. 40 kg)</span></div><div><b>ca. 57 %</b><span>Holzbalken ausgelastet mit Schnee, Durchbiegung ca. 1,5 cm bei Grenze 2 cm</span></div></div>' +
+       '<ul><li>32 Bohrungen durch die Dachhaut. Jede muss dauerhaft dicht bleiben.</li>' +
+       '<li>Die übliche und einfachste Montage, aber auf einem fast flachen Dach mit unbekannter Dachhaut das größte Risiko für Undichtigkeit.</li></ul>'
+  };
+  var NOTE = '<p class="hint">Alle Zahlen sind ein Überschlag, kein Nachweis. Angesetzt: Windzone 1, Schneelastzone 2a auf 440 m Höhe (ca. 1,36 kN/m² auf dem Dach), freie Balkenlänge 4,0 m, Holz C24.</p>';
+
+  function setV(v) {
+    if (st.v !== v || !st.init) { document.getElementById('tMod').checked = (v === 1); st.init = 1; }
+    st.v = v;
+    document.querySelectorAll('.tabs button').forEach(function (b) { b.classList.toggle('on', +b.dataset.v === v); });
+    document.getElementById('info').innerHTML = INFO[v] + NOTE;
+    draw();
+  }
+  document.querySelectorAll('.tabs button').forEach(function (b) { b.onclick = function () { setV(+b.dataset.v); }; });
+  ['tRoof', 'tMod', 'tDim'].forEach(function (id) { document.getElementById(id).onchange = draw; });
+  document.getElementById('bIso').onclick = function () { st.az = 1.0; st.el = 0.56; st.zoom = 1; draw(); };
+  document.getElementById('bTop').onclick = function () { st.az = 1.5708; st.el = 1.5; st.zoom = 1; draw(); };
+  document.getElementById('bSide').onclick = function () { st.az = 0.1; st.el = 0.12; st.zoom = 1; draw(); };
+
+  var drag = null;
+  cv.addEventListener('pointerdown', function (e) { drag = [e.clientX, e.clientY]; cv.setPointerCapture(e.pointerId); cv.style.cursor = 'grabbing'; });
+  cv.addEventListener('pointermove', function (e) {
+    if (!drag) return;
+    st.az += (e.clientX - drag[0]) * 0.008;
+    st.el = Math.max(0.1, Math.min(1.5, st.el + (e.clientY - drag[1]) * 0.006));
+    drag = [e.clientX, e.clientY]; draw();
+  });
+  cv.addEventListener('pointerup', function () { drag = null; cv.style.cursor = 'grab'; });
+  cv.addEventListener('wheel', function (e) { e.preventDefault(); st.zoom = Math.max(0.5, Math.min(4, st.zoom * (e.deltaY < 0 ? 1.1 : 0.9))); draw(); }, { passive: false });
+  window.addEventListener('resize', draw);
+
+  var m = /v=([123])/.exec(location.hash), q;
+  if ((q = /az=([-\d.]+)/.exec(location.hash))) st.az = +q[1];
+  if ((q = /el=([-\d.]+)/.exec(location.hash))) st.el = +q[1];
+  st.v = 0;
+  setV(m ? +m[1] : 1);
+  window.__set = function (o) { for (var k in o) st[k] = o[k]; setV(st.v); };
+})();
+</script>
+</body>
+</html>
