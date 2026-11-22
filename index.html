@@ -40,7 +40,7 @@
 <body>
 <header>
   <h1>Carport: 8 Solarmodule, geplanter Aufbau und zwei Alternativen</h1>
-  <p>Maßstäbliche 3D-Skizze zum Ansehen, kein Statik-Nachweis. Am Computer mit der Maus drehen und mit dem Mausrad vergrößern. Am Handy: mit einem Finger im Bild drehen und kippen, mit zwei Fingern oder rechts neben dem Bild die Seite scrollen. Stand 22.11.2026.</p>
+  <p>Maßstäbliche 3D-Skizze zum Ansehen, kein Statik-Nachweis. Am Computer mit der Maus drehen und mit dem Mausrad vergrößern. Am Handy: mit einem Finger im Bild drehen und kippen, mit zwei Fingern auseinanderziehen zum Vergrößern (oder die Knöpfe „größer“ und „kleiner“), rechts neben dem Bild die Seite scrollen. Stand 22.11.2026.</p>
 </header>
 <div class="wrap">
   <div class="left">
@@ -57,6 +57,8 @@
       <button id="bIso">Schrägansicht</button>
       <button id="bTop">Von oben</button>
       <button id="bSide">Von der Seite</button>
+      <button id="bPlus" aria-label="Vergrößern">＋ größer</button>
+      <button id="bMinus" aria-label="Verkleinern">－ kleiner</button>
     </div>
   </div>
   <div class="right">
@@ -376,7 +378,9 @@
   document.getElementById('bTop').onclick = function () { st.az = 1.5708; st.el = 1.5; st.zoom = 1; draw(); };
   document.getElementById('bSide').onclick = function () { st.az = 0.1; st.el = 0.12; st.zoom = 1; draw(); };
 
-  var pts = {}, drag = null;
+  document.getElementById('bPlus').onclick = function () { st.zoom = Math.min(4, st.zoom * 1.25); draw(); };
+  document.getElementById('bMinus').onclick = function () { st.zoom = Math.max(0.5, st.zoom / 1.25); draw(); };
+  var pts = {}, drag = null, pinch = null;
   function count() { return Object.keys(pts).length; }
   cv.addEventListener('pointerdown', function (e) {
     pts[e.pointerId] = [e.clientX, e.clientY];
@@ -387,14 +391,25 @@
   cv.addEventListener('pointermove', function (e) {
     if (!pts[e.pointerId]) return;
     var old = pts[e.pointerId]; pts[e.pointerId] = [e.clientX, e.clientY];
-    if (count() >= 2) { window.scrollBy(0, -(e.clientY - old[1])); return; }   // zwei Finger: Seite scrollen
+    if (count() >= 2) {   // zwei Finger: auseinanderziehen vergrößert, gemeinsam schieben scrollt die Seite
+      var k = Object.keys(pts), a = pts[k[0]], b = pts[k[1]];
+      var d = Math.hypot(a[0] - b[0], a[1] - b[1]), cy = (a[1] + b[1]) / 2;
+      if (pinch) {
+        if (pinch.d > 10 && d > 10) st.zoom = Math.max(0.5, Math.min(4, st.zoom * d / pinch.d));
+        window.scrollBy(0, -(cy - pinch.cy));
+        draw();
+      }
+      pinch = { d: d, cy: cy };
+      return;
+    }
+    pinch = null;
     if (!drag) { drag = [e.clientX, e.clientY]; return; }
     st.az += (e.clientX - drag[0]) * 0.008;
     st.el = Math.max(0.1, Math.min(1.5, st.el + (e.clientY - drag[1]) * 0.006));
     drag = [e.clientX, e.clientY]; draw();
   });
   ['pointerup', 'pointercancel'].forEach(function (n) {
-    cv.addEventListener(n, function (e) { delete pts[e.pointerId]; drag = null; cv.style.cursor = 'grab'; });
+    cv.addEventListener(n, function (e) { delete pts[e.pointerId]; drag = null; pinch = null; cv.style.cursor = 'grab'; });
   });
   cv.addEventListener('wheel', function (e) { e.preventDefault(); st.zoom = Math.max(0.5, Math.min(4, st.zoom * (e.deltaY < 0 ? 1.1 : 0.9))); draw(); }, { passive: false });
   window.addEventListener('resize', draw);
