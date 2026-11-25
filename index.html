@@ -80,7 +80,8 @@
         <li>Vorne ist die Seite zum Haus. Die Dachrinne ist hinten.</li>
         <li>4 Stahlstützen stehen auf Betonfundamenten.</li>
         <li>Auf 2 Stahlträgern liegen 9 Holzbalken (8 × 16 cm).</li>
-        <li>Die Module liegen in 2 Reihen mit je 4 Stück. Rundherum bleiben 30 bis 40 cm frei.</li>
+        <li>Die Module stehen in 2 Reihen mit je 4 Stück. Zwischen den Reihen bleiben rund 55 cm, damit die vordere Reihe die hintere kaum verschattet.</li>
+        <li>Die tiefe Modulkante liegt 12 cm über dem Dach.</li>
       </ul>
     </div>
   </div>
@@ -95,9 +96,9 @@
   var ZB0 = 2.20, ZB1 = 2.36;        // Stahlträger
   var ZJ1 = 2.52, RT = 2.56;         // Balken oben, Dach oben
   var MW = 1.95, MH = 1.13, GAP = 0.02, MT = 0.035;
-  var FX0 = (W - (2 * MW + GAP)) / 2;   // 0,39
+  var FX0 = 0.15;   // Reihen weit auseinander: vorne 15 cm vom Dachrand
   var FY0 = (L - (4 * MH + 3 * GAP)) / 2;   // 0,31, seitlich mittig
-  var COLX = [FX0, FX0 + MW + GAP];
+  var COLX = [FX0, W - 0.15 - MW * Math.cos(10 * Math.PI / 180)];   // hintere Reihe 15 cm vor der Hinterkante, Lücke ca. 56 cm
   var ROWY = [0, 1, 2, 3].map(function (k) { return FY0 + k * (MH + GAP); });
   var FX1 = COLX[1] + MW, FY1 = ROWY[3] + MH;
   var JOISTS = []; for (var j = 0; j < 9; j++) JOISTS.push(0.08 + j * 0.63);
@@ -176,7 +177,7 @@
   function moduleOpts(a) { return { alpha: a, stroke: '#dfe5ea', lw: 1.1, cells: true }; }
 
   // ---------- Variante 1: geplant, 24 Steine, 10 Grad, alles ein Verbund ----------
-  var TAN = Math.tan(10 * Math.PI / 180), COS = Math.cos(10 * Math.PI / 180), Z0 = RT + 0.08;
+  var TAN = Math.tan(10 * Math.PI / 180), COS = Math.cos(10 * Math.PI / 180), Z0 = RT + 0.12;
   function v1(ma) {
     var zs = RT + 0.012, zt = zs + 0.05;
     function stone(x0, y) {
@@ -261,7 +262,7 @@
     dim([-0.45, 0, RT], [-0.45, L, RT], 'Dach 5,20 m');
     dim([BX[0], PY[0] - 0.45, 0], [BX[1], PY[0] - 0.45, 0], 'Stützen 4,00 m');
     dim([BX[1] + 0.6, PY[0], 0], [BX[1] + 0.6, PY[1], 0], 'Stützen 4,40 m');
-    dim([FX0, FY1 + 0.22, RT], [FX1, FY1 + 0.22, RT], 'Modulfeld ca. 3,9 m');
+    dim([FX0, FY1 + 0.22, RT], [FX1, FY1 + 0.22, RT], 'Modulfeld ca. 4,4 m');
     dim([W + 0.4, FY0, RT], [W + 0.4, FY1, RT], 'Modulfeld 4,58 m');
     lab([-1.3, L / 2, 0], 'VORNE (Hausseite)', true);
     lab([W + 1.4, L / 2, 2.4], 'HINTEN (Dachrinne)', true);
